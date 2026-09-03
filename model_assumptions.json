@@ -1,0 +1,37 @@
+{
+  "target": "annual maize yield in tonnes per hectare",
+  "counties": ["Bomet", "Bungoma", "Elgeyo/Marakwet", "Kakamega", "Nakuru", "Nandi", "Narok", "Trans Nzoia", "Uasin Gishu"],
+  "primary_counties": ["Bungoma", "Nandi"],
+  "yield_years_available": [2012, 2013, 2014, 2015, 2016, 2017, 2018, 2020],
+  "missing_yield_year": 2019,
+  "cutoff": "June 30 of each prediction year",
+  "features": ["cum_rainfall_30jun", "rainy_days_30jun", "longest_dry_spell", "rainfall_anomaly"],
+  "training_only_operations": ["county rainfall anomaly baseline", "standard scaler fit"],
+  "nominal_split": {
+    "train": "year <= 2017",
+    "validation": "year == 2018",
+    "test": "year == 2020"
+  },
+  "executed_merged_panel": {
+    "rows": 36,
+    "years": [2016, 2017, 2018, 2020],
+    "train_rows": 18,
+    "validation_rows": 9,
+    "test_rows": 9
+  },
+  "quantum_model": {
+    "qubits": 4,
+    "encoding": "ZZFeatureMap",
+    "reps": 2,
+    "kernel": "FidelityQuantumKernel",
+    "regression": "explicit closed-form kernel ridge",
+    "lambda_grid": [0.01, 0.1, 1.0, 10.0],
+    "shot_noise_shots": 1024,
+    "robustness_seeds": [7, 17, 27, 37, 47]
+  },
+  "forecast_coverage": {
+    "Bungoma": "2021-2026 where rainfall through June 30 exists",
+    "Nandi": "no supported forecast after 2020 because supplied rainfall ends in 2020"
+  },
+  "claim_limit": "No comparison with or superiority claim over the separate classical model until its results are available."
+}
